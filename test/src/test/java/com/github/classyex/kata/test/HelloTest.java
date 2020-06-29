@@ -20,6 +20,7 @@ public class HelloTest {
     public void should_say_hello_to_lisi() {
         Hello hello = new Hello("lisi");
         Assertions.assertEquals("hello lisi", hello.sayHello());
+
     }
 
 }
