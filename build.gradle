@@ -1,0 +1,80 @@
+subprojects {
+    apply plugin: 'java'
+
+    group = 'com.github.classyex.kata'
+    version = new Date().format('yyyyMMdd') + '-SNAPSHOT'
+    sourceCompatibility = JavaVersion.VERSION_14
+    targetCompatibility = JavaVersion.VERSION_14
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+        options.compilerArgs << "-Xlint:unchecked"
+        options.compilerArgs << "-Xlint:deprecation"
+    }
+
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/"}
+        mavenCentral()
+        jcenter()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+
+    dependencies {
+        implementation("com.google.guava:guava:$guavaVersion")
+        implementation("org.springframework.boot:spring-boot-starter:$springBootVersion")
+        implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+        implementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+
+        compileOnly("org.projectlombok:lombok:$lombokVersion")
+        annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+        runtimeOnly("mysql:mysql-connector-java:$mysqlVersion")
+
+        testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+        testImplementation("org.assertj:assertj-core:$assertJVersion")
+        testImplementation("org.mockito:mockito-core:$mockitoVersion")
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    apply from: "$rootDir/gradle/config/scripts/style.gradle"
+    apply from: "$rootDir/gradle/config/scripts/coverage.gradle"
+
+    coverage.excludePackages = [
+    ]
+
+    coverage.excludeClasses = [
+            'com.github.classyex.kata.bankocr.BankocrApplication',
+            'com.github.classyex.kata.bankocr.BankocrApplicationTests'
+    ]
+
+    style.excludePackages = [
+    ]
+
+    style.excludeClasses = [
+            'com.github.classyex.kata.bankocr.BankocrApplication',
+            'com.github.classyex.kata.bankocr.BankocrApplicationTests'
+    ]
+}
+
+configure(subprojects - project(':bankocr')) {
+    project(':bankocr').dependencies {
+        implementation(project)
+    }
+}
+
+allprojects {
+    apply plugin: 'idea'
+}
+
+apply from: "$rootDir/gradle/config/scripts/idea.gradle"
+
+wrapper {
+    gradleVersion = '6.5'
+}
