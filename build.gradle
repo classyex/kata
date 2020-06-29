@@ -3,8 +3,8 @@ subprojects {
 
     group = 'com.github.classyex.kata'
     version = new Date().format('yyyyMMdd') + '-SNAPSHOT'
-    sourceCompatibility = JavaVersion.VERSION_14
-    targetCompatibility = JavaVersion.VERSION_14
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
@@ -50,16 +50,12 @@ subprojects {
     ]
 
     coverage.excludeClasses = [
-            'com.github.classyex.kata.bankocr.BankocrApplication',
-            'com.github.classyex.kata.bankocr.BankocrApplicationTests'
     ]
 
     style.excludePackages = [
     ]
 
     style.excludeClasses = [
-            'com.github.classyex.kata.bankocr.BankocrApplication',
-            'com.github.classyex.kata.bankocr.BankocrApplicationTests'
     ]
 }
 
