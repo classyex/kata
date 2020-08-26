@@ -6,7 +6,7 @@ package com.github.classyex.kata.fizzbuzz;
 public class FizzBuzz {
 
 
-    private int input;
+    private Integer input;
 
     public FizzBuzz(int input) {
         this.input = input;
@@ -14,16 +14,24 @@ public class FizzBuzz {
 
     public String of() {
         String result = "";
-        if (divisionBy(3)) {
+        if (relationTo(3)) {
             result += "fizz";
         }
-        if (divisionBy(5)) {
+        if (relationTo(5)) {
             result += "buzz";
         }
         if (result.length() == 0) {
             result += input;
         }
         return result;
+    }
+
+    private boolean relationTo(int num) {
+        return divisionBy(num) || contains(num + "");
+    }
+
+    private boolean contains(String num) {
+        return input.toString().contains(num);
     }
 
     private boolean divisionBy(int num) {

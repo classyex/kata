@@ -53,6 +53,26 @@ public class FizzBuzzTest {
         Assertions.assertEquals("fizzbuzz", fizzBuzz.of());
     }
 
+    @Test
+    public void should_be_fizz_given_13() {
+        FizzBuzz fizzBuzz = new FizzBuzz(13);
+        Assertions.assertEquals("fizz", fizzBuzz.of());
+    }
+
+    @Test
+    public void should_be_buzz_given_52() {
+        FizzBuzz fizzBuzz = new FizzBuzz(52);
+        Assertions.assertEquals("buzz", fizzBuzz.of());
+    }
+
+    @Test
+    public void should_be_fizzbuzz_given_53() {
+        FizzBuzz fizzBuzz = new FizzBuzz(53);
+        Assertions.assertEquals("fizzbuzz", fizzBuzz.of());
+    }
+
+
+
 
 
 
